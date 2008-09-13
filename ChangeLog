@@ -1,0 +1,130 @@
+2006-10-09  Christof Damian  <christof@damian.net>
+
+	* released 1.13
+
+	* fix for mediawiki 1.7
+
+2006-09-29  Christof Damian  <christof@damian.net>
+
+	* released 1.12
+
+	* fix for '[[]]' display when merging and main calendar entry is empty
+
+	* fix for including more than one calendar
+
+	* simple ical format, which I use on krass.com
+	
+2006-04-18  Christof Damian  <christof@damian.net>
+
+	* released 1.11
+
+	* 1.10 had a syntax error
+
+	* fix for one date() call
+
+2006-04-06  Christof Damian  <christof@damian.net>
+
+	* released 1.10
+
+	* fixed weekformat=list
+
+	* xml style parameters
+
+	* released 1.9
+
+	* weekformat is in classes now
+
+2006-03-10  Christof Damian  <christof@damian.net>
+
+	* released 1.8
+
+	* "weekformat" option for different layouts
+
+	* "showempty" to supplress "add entry" msgs
+
+	* localized calendar from user preferences
+
+	* fix merge function to pass calendar name
+
+	* The Amador Release
+
+2006-03-01  Christof Damian  <christof@damian.net>
+
+	* released 1.7
+
+	* another fix for the cache (thanks to Austin Che)
+	
+	* "skipempty" option
+
+	* "rdays" reverse order of days
+
+2005-11-17  Christof Damian  <christof@damian.net>
+
+	* released 1.6
+
+	* replaced <h3> in week display, to remove TOC in mediawiki 1.5
+
+2005-10-14  Christof Damian  <christof@damian.net>
+
+	* first go at merging calendars
+
+	* add extension credits
+
+2005-10-12  Christof Damian  <christof@damian.net>
+
+	* released 1.5
+
+	* fixed month display again
+
+	* released 1.4
+
+	* included some tests for CalendarClass using PHPUnit2
+
+	* fix weeks not starting on monday
+
+	* fix padding after month ending in end of the week
+
+	* new DaysInMonth() and DayOfWeek() not using the php calendar
+	extensions anymore
+
+2005-10-04  Christof Damian  <christof@damian.net>
+
+	* new clearCache() version by Daniel Simon
+
+2005-09-28  Christof Damian  <christof@damian.net>
+
+	* "weekstart" option
+
+2005-09-16  Christof Damian  <christof@damian.net>
+
+	* fix version parsing for rc releases like 1.5rc1
+
+	* changed "<?" to "<?php" in CalendarClass.php, thanks Juanma
+	Barranquero
+
+	* new option "formattitle" for the titles in the week/day views
+	* format & formattitle both accept php date() parameters now,
+	  prefixed with '%'. like this: "%d.%m.%Y".
+
+2005-09-15  Christof Damian  <christof@damian.net>
+
+	* enable double quoted options
+
+	* "date" option, this takes a php strtotime string
+
+	* disable cache for 1.5 (untested)
+
+2005-09-06  Christof Damian  <christof@damian.net>
+
+	* new view="days" with additional parameter "days" for the number
+	of days to show. I needed that for krass.com
+
+	* new view="today" option from Dexter Samida <dextersamida@gmail.com>
+
+	I'm not completely happy with it, but it doesn't hurt at the moment
+
+2005-08-29  Christof Damian  <christof@damian.net>
+
+	* fix problem with "format" option
+	
+
