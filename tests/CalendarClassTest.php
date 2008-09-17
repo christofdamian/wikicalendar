@@ -24,41 +24,41 @@ class CalendarClassTest extends PHPUnit_Framework_TestCase
 
 	public function testGetYear()
 	{
-		self::assertEquals($this->_cal->year, 2000);
+		$this->assertEquals($this->_cal->year, 2000);
 	}
 
 	public function testDayOfWeek()
 	{
-		self::assertEquals($this->_cal->DayOfWeek(5, 11, 2000), 7);
-		self::assertEquals($this->_cal->DayOfWeek(12, 10, 2005), 3);
+		$this->assertEquals($this->_cal->DayOfWeek(5, 11, 2000), 7);
+		$this->assertEquals($this->_cal->DayOfWeek(12, 10, 2005), 3);
 	}
 
 	public function testDaysInMonth()
 	{
-		self::assertEquals($this->_cal->DaysInMonth(2, 2000), 29);
-		self::assertEquals($this->_cal->DaysInMonth(2, 1997), 28);
-		self::assertEquals($this->_cal->DaysInMonth(2, 2004), 29);
-		self::assertEquals($this->_cal->DaysInMonth(11, 2004), 30);
+		$this->assertEquals($this->_cal->DaysInMonth(2, 2000), 29);
+		$this->assertEquals($this->_cal->DaysInMonth(2, 1997), 28);
+		$this->assertEquals($this->_cal->DaysInMonth(2, 2004), 29);
+		$this->assertEquals($this->_cal->DaysInMonth(11, 2004), 30);
 	}
 
 	public function testDisplayToday()
 	{
-		self::assertContains("5.11.2000 Sunday", $this->_cal->displayToday());
+		$this->assertContains("5.11.2000 Sunday", $this->_cal->displayToday());
 	}
 
 	public function testDisplayWeek1()
 	{
 		$week = $this->_cal->displayWeek();
-		self::assertContains("30.10.2000 Monday", $week);
-		self::assertContains("5.11.2000 Sunday", $week);
+		$this->assertContains("30.10.2000 Monday", $week);
+		$this->assertContains("5.11.2000 Sunday", $week);
 	}
 
 	public function testDisplayWeek2()
 	{
 		$_cal = new CalendarClass(2005, 10, 12);
 		$week = $_cal->displayWeek();
-		self::assertContains("10.10.2005 Monday", $week);
-		self::assertContains("16.10.2005 Sunday", $week);
+		$this->assertContains("10.10.2005 Monday", $week);
+		$this->assertContains("16.10.2005 Sunday", $week);
 	}
 
 	public function testDisplayWeek3()
@@ -67,44 +67,60 @@ class CalendarClassTest extends PHPUnit_Framework_TestCase
 		$_cal->weekstart = 7;
 		$week            = $_cal->displayWeek();
 
-		self::assertContains("9.10.2005 Sunday", $week);
-		self::assertContains("15.10.2005 Saturday", $week);
+		$this->assertContains("9.10.2005 Sunday", $week);
+		$this->assertContains("15.10.2005 Saturday", $week);
 	}
 
 	public function testDisplayDays()
 	{
 		$_cal = new CalendarClass(2005, 10, 10);
-		self::assertEquals($_cal->displayWeek(), $_cal->displayDays(7));
+		$this->assertEquals($_cal->displayWeek(), $_cal->displayDays(7));
 	}
 
 	public function testDisplayMonth1()
 	{
-		self::assertEquals("November|M,T,W,T,F,S,S|"
+		$this->assertEquals("November|M,T,W,T,F,S,S|"
 			.",,1,2,3,4,5|6,7,8,9,10,11,12|"
 			."13,14,15,16,17,18,19|20,21,22,23,24,25,26|27,28,29,30,,,|",
-			self::_striphtml($this->_cal->displayMonth()));
+			$this->_striphtml($this->_cal->displayMonth()));
 	}
 
 	public function testDisplayMonth2()
 	{
 		$_cal = new CalendarClass(2005, 10, 10);
 
-		self::assertEquals("October|M,T,W,T,F,S,S|"
+		$this->assertEquals("October|M,T,W,T,F,S,S|"
 			.",,,,,1,2|3,4,5,6,7,8,9|10,11,12,13,14,15,16|"
 			."17,18,19,20,21,22,23|24,25,26,27,28,29,30|31,,,,,,|",
-			self::_striphtml($_cal->displayMonth()));
+			$this->_striphtml($_cal->displayMonth()));
 
 		$_cal->weekstart = 5;
-		self::assertEquals("October|F,S,S,M,T,W,T|"
+		$this->assertEquals("October|F,S,S,M,T,W,T|"
 			.",1,2,3,4,5,6|7,8,9,10,11,12,13|"
 			."14,15,16,17,18,19,20|21,22,23,24,25,26,27|28,29,30,31,,,|",
-			self::_striphtml($_cal->displayMonth()));
+			$this->_striphtml($_cal->displayMonth()));
 
 		$_cal->weekstart = 7;
-		self::assertEquals("October|S,M,T,W,T,F,S|"
+		$this->assertEquals("October|S,M,T,W,T,F,S|"
 			.",,,,,,1|2,3,4,5,6,7,8|9,10,11,12,13,14,15|"
 			."16,17,18,19,20,21,22|23,24,25,26,27,28,29|30,31,,,,,|",
-		self::_striphtml($_cal->displayMonth()));
+		$this->_striphtml($_cal->displayMonth()));
+	}
+
+	public function testWeeks()
+	{
+		$_cal = new CalendarClass(2008,1,1);
+
+		$time = mktime(0,0,0,1,30,2008);
+
+		$this->assertEquals(
+			"05 30.01.2008 Wednesday",
+			$this->_striphtml($_cal->displayWeekRow($time))
+		);
+
+		$this->assertEquals(
+			"01 31.12.2007 Monday02 07.01.2008 Monday03 14.01.2008 Monday",
+			$this->_striphtml($_cal->displayWeeks("15 Jan 2008")));
 	}
 
 	/**

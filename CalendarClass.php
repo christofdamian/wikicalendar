@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class CalendarClass
 {
+	var $weekstart = 1;
+
 
 	function CalendarClass($year=0, $month=0, $day=0)
 	{
@@ -286,9 +288,37 @@ class CalendarClass
 		return $this->displayDays(1);
 	}
 
+	/**
+	 * display one row for the displayWeeks() method
+	 *
+	 * @param integer $time time of the date to display
+	 * @return string
+	 */
+	function displayWeekRow($time)
+	{
+		return '<li>'.date('W d.m.Y l',$time).'</li>';
+	}
+
+	/**
+	 * display the weeks until enddate.
+	 *
+	 * @param string $enddate date() formated string
+	 * @return string
+	 */
 	function displayWeeks($enddate)
 	{
+		$dow = $this->DayOfWeek($this->day,$this->month,$this->year);
+		$time = mktime(0, 0, 0, $this->month, $this->day, $this->year);
+		$time -= 60*60*24*($dow-$this->weekstart % 7);
 
+		$endtime = strtotime($enddate);
+
+		$r = '';
+		while ($time < $endtime) {
+			$r .= $this->displayWeekRow($time);
+			$time += 60*60*24*7;
+		}
+		return "<ul>$r</ul>";
 	}
 }
 

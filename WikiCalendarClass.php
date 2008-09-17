@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
 
 Simple wiki calendar class
 Copyright (C) 2005 Christof Damian
@@ -21,148 +21,169 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-require_once("CalendarClass.php");
+require_once dirname(__FILE__).'/CalendarClass.php';
 
-class WikiCalendarClass extends CalendarClass { 
+class WikiCalendarClass extends CalendarClass {
 
-  function WeekdayShort($dow, $len = false) {
-    if ($dow == 0) $dow = 7;
-    if ($len === false) $len = $this->weekdaylen;
-    $a = array('monday','tuesday','wednesday',
+	var $format;
+	var $formattitle;
+	var $name;
+	var $skipempty;
+	var $showempty;
+	var $weekdaylen;
+
+
+	function WeekdayShort($dow, $len = false) {
+		if ($dow == 0) $dow = 7;
+		if ($len === false) $len = $this->weekdaylen;
+		$a = array('monday','tuesday','wednesday',
                'thursday','friday','saturday','sunday');
-    $day = wfMsg($a[$dow-1]);
-    return substr($day, 0, $len);
-  }
+		$day = wfMsg($a[$dow-1]);
+		return substr($day, 0, $len);
+	}
 
-  function WeekdayLong($dow) {
-    if ($dow == 0) $dow = 7;
-    $a = array('monday','tuesday','wednesday',
+	function WeekdayLong($dow) {
+		if ($dow == 0) $dow = 7;
+		$a = array('monday','tuesday','wednesday',
                'thursday','friday','saturday','sunday');
-    return wfMsg($a[$dow-1]);
-  }
+		return wfMsg($a[$dow-1]);
+	}
 
-  function MonthName($month) {
-    $a = array("january", "february", "march", "april", 
-               "may_long", "june", "july", "august", 
+	function MonthName($month) {
+		$a = array("january", "february", "march", "april",
+               "may_long", "june", "july", "august",
                "september", "october", "november", "december");
-    return wfMsg($a[$month-1]);
-  }
+		return wfMsg($a[$month-1]);
+	}
 
-  function MonthShort($month) {
-    $a = array("jan", "feb", "mar", "apr", "may", "jun",
+	function MonthShort($month) {
+		$a = array("jan", "feb", "mar", "apr", "may", "jun",
                "jul", "aug", "sep", "oct", "nov", "dec");
-    return wfMsg($a[$month-1]);
-  }
+		return wfMsg($a[$month-1]);
+	}
 
-  function MonthLong($month) {
-    return ($this->MonthName($month));
-  }
+	function MonthLong($month) {
+		return ($this->MonthName($month));
+	}
 
-  function _format($day,$month,$year,$name,$r) {
-    $r = str_replace('%day',$day,$r);
-    $r = str_replace('%month',$month,$r);
-    $r = str_replace('%year',$year,$r);
-    $r = str_replace('%name',$name,$r);
+	function _format($day,$month,$year,$name,$r) {
+		$r = str_replace('%day',$day,$r);
+		$r = str_replace('%month',$month,$r);
+		$r = str_replace('%year',$year,$r);
+		$r = str_replace('%name',$name,$r);
 
-    $time = mktime(0,0,0,$month,$day,$year);
-    while (preg_match('/%([A-Za-z])/',$r,$matches)>0) {
-      switch ($matches[1]) {
-      case 'D': // short weekday string
-        $str = $this->WeekdayShort(date('w',$time), 3);
-        break;
-      case 'l': // long weekday string
-        $str = $this->WeekdayLong(date('w',$time));
-        break;
-      case 'M': // short month string
-        $str = $this->MonthShort(date('n',$time));
-        break;
-      case 'F': // long month string
-        $str = $this->MonthLong(date('n',$time));
-        break;
-      default:
-        $str = date($matches[1],$time);
-      }
-      $r = str_replace('%'.$matches[1],$str,$r);
-    }
-    return $r;
-  }
+		$time = mktime(0,0,0,$month,$day,$year);
+		while (preg_match('/%([A-Za-z])/',$r,$matches)>0) {
+			switch ($matches[1]) {
+				case 'D': // short weekday string
+					$str = $this->WeekdayShort(date('w',$time), 3);
+					break;
+				case 'l': // long weekday string
+					$str = $this->WeekdayLong(date('w',$time));
+					break;
+				case 'M': // short month string
+					$str = $this->MonthShort(date('n',$time));
+					break;
+				case 'F': // long month string
+					$str = $this->MonthLong(date('n',$time));
+					break;
+				default:
+					$str = date($matches[1],$time);
+			}
+			$r = str_replace('%'.$matches[1],$str,$r);
+		}
+		return $r;
+	}
 
-  function formatdate($day,$month,$year) {
-    return $this->_format($day,$month,$year,$this->name,$this->format);
-  }
+	function formatdate($day,$month,$year) {
+		return $this->_format($day,$month,$year,$this->name,$this->format);
+	}
 
-  function formattitle($day,$month,$year) {
-    return $this->_format($day,$month,$year,$this->name,$this->formattitle);
-  }
+	function formattitle($day,$month,$year) {
+		return $this->_format($day,$month,$year,$this->name,$this->formattitle);
+	}
 
-  function displayDay($day, $month, $year) {
-    $text = $this->formatdate($day,$month,$year);
-    $title = Title::newFromText($text);
-    return '[['.$text.'|'.$day.']]';
-  }
+	function displayDay($day, $month, $year) {
+		$text = $this->formatdate($day,$month,$year);
+		$title = Title::newFromText($text);
+		return '[['.$text.'|'.$day.']]';
+	}
 
-  function displayWeekday($day, $month, $year, $dow) {
-    $today = getdate();
-    $text = $this->formatdate($day,$month,$year);
-    $heading = $this->formattitle($day,$month,$year);
-    
-    if (($day == $today["mday"]) && ($month == $today["mon"]) && ($year == $today["year"])) {
-      $r = $this->weekformat->TodayTitle($text,$heading);
-    } else {
-      $r = $this->weekformat->DayTitle($text,$heading);
-    }
-    
-    $main = "";
-    $title = Title::newFromText($text);
-    if ($title and $title->getArticleID()!=0) {
-      $main = $text;
-    }
+	function displayWeekday($day, $month, $year, $dow) {
+		$today = getdate();
+		$text = $this->formatdate($day,$month,$year);
+		$heading = $this->formattitle($day,$month,$year);
 
-    $merged = "";
-    foreach ($this->merge as $i) {
-      $merge = $this->_format($day,$month,$year,$i,$this->format);
-      $title = Title::newFromText($merge);
-      if ($title and $title->getArticleID()!=0) {
-        $merged .= $this->weekformat->MergedDay($i,$merge);
-      }
-    }
+		if (($day == $today["mday"]) && ($month == $today["mon"]) && ($year == $today["year"])) {
+			$r = $this->weekformat->TodayTitle($text,$heading);
+		} else {
+			$r = $this->weekformat->DayTitle($text,$heading);
+		}
 
-    if ($main or $merged) {
-      $r .= $this->weekformat->Day($main, $merged, $day, $month, $year);
-    } else {
-      if ($this->skipempty) {
-        return '';
-      } elseif ($this->showempty) {
-        $r .= $this->weekformat->EmptyDay("<small>No entries for this date. Please [[$text|feel free to add entries]].</small>");
-      }
-    }
-    
-    return $r;
-  }
+		$main = "";
+		$title = Title::newFromText($text);
+		if ($title and $title->getArticleID()!=0) {
+			$main = $text;
+		}
 
-  function displayDays($n = 0, $reverse = false) {
-    $time = mktime(0, 0, 0, $this->month, $this->day, $this->year);
-    if ($n == 0) {
-        $time -= 60 * 60 * 24 * ((date('w', $time) + 7 - $this->weekstart) % 7);
-        $n = 7;
-    }
+		$merged = "";
+		foreach ($this->merge as $i) {
+			$merge = $this->_format($day,$month,$year,$i,$this->format);
+			$title = Title::newFromText($merge);
+			if ($title and $title->getArticleID()!=0) {
+				$merged .= $this->weekformat->MergedDay($i,$merge);
+			}
+		}
 
-    $r = '';
-    $end = $reverse ? 0 : $n;
-    $step = $reverse ? -1 : 1;
-    $start = $reverse ? $n : 0;
-    for ($i = $start; $i != $end; $i += $step) {
-      $date = getdate($time + ($i*60*60*24));
-      $day = $date["mday"];
-      $month = $date["mon"];
-      $year = $date["year"];
-      $wday = ($date["wday"]+6)%7;
+		if ($main or $merged) {
+			$r .= $this->weekformat->Day($main, $merged, $day, $month, $year);
+		} else {
+			if ($this->skipempty) {
+				return '';
+			} elseif ($this->showempty) {
+				$r .= $this->weekformat->EmptyDay("<small>No entries for this date. Please [[$text|feel free to add entries]].</small>");
+			}
+		}
 
-      $r .= $this->displayWeekday($day, $month, $year, $wday);
-    }
+		return $r;
+	}
 
-    return $this->weekformat->Wrapper($r);
-  }
+	function displayDays($n = 0, $reverse = false) {
+		$time = mktime(0, 0, 0, $this->month, $this->day, $this->year);
+		if ($n == 0) {
+			$time -= 60 * 60 * 24 * ((date('w', $time) + 7 - $this->weekstart) % 7);
+			$n = 7;
+		}
+
+		$r = '';
+		$end = $reverse ? 0 : $n;
+		$step = $reverse ? -1 : 1;
+		$start = $reverse ? $n : 0;
+		for ($i = $start; $i != $end; $i += $step) {
+			$date = getdate($time + ($i*60*60*24));
+			$day = $date["mday"];
+			$month = $date["mon"];
+			$year = $date["year"];
+			$wday = ($date["wday"]+6)%7;
+
+			$r .= $this->displayWeekday($day, $month, $year, $wday);
+		}
+
+		return $this->weekformat->Wrapper($r);
+	}
+
+	function displayWeekRow($time)
+	{
+		$day   = date('d',$time);
+		$month = date('n',$time);
+		$year  = date('Y',$time);
+
+		$date = $this->formatdate($day,$month,$year);
+		$title = $this->formattitle($day,$month,$year);
+
+		return "<li>[[$date|$title]]</li>";
+	}
+
 }
 
 ?>

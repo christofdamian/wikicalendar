@@ -17,7 +17,7 @@ extension directory and put this into your LocalSettings.php:
   include("extensions/Calendar.php");
 
 Then you can use the calendar on any page like this:
-  
+
 <calendar>
 name=krass
 view=year
@@ -25,30 +25,33 @@ view=year
 
 The parameters work like this:
 
-"view" 
+"view"
        can be "days" days from today, "rdays" (reverse days),
-       "week","month","threemonths" and "year" (default).
-"name" 
+       "week","month","threemonths", "year" (default) and "weeks".
+"name"
        is a name for the calendar and changes the names of the day pages.
-"format" 
+"format"
        defaults to '%name_%year_%month_%day' and describes the names
        of the day pages.
-"formattitle" 
+"formattitle"
        formats the titles in today/days/week view
 "day","month","year"
        you can specify the date of the calendar, it defaults to today.
        currently this doesn't work with "view=week"
-"date" 
+"date"
        this takes a php strtotime ( http:://www.php.net/strtotime )
        option and overrides the "day","month","year" option
        above. examples are:
- 
+
        date="+1 week"
        date="next monday"
        date="+7 days"
+"enddate"
+       just used for the weeks view, this is the last date to display in the
+       weeks
 "weekstart"
        week starts on 1=monday ... 7=sunday. default is 1
-"skipempty" 
+"skipempty"
        skip empty days in week view
 "showempty"
        show inivitation to add entries when a day is empty, default is 1
@@ -73,8 +76,6 @@ format & formattitle accept these substitutions:
         %name
         %day,%month,%year
         any php date() substitution prefixed with '%', like '%m','%d','%Y'
-
-
 
 Thanks go to these contributors:
 

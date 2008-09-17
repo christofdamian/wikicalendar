@@ -28,11 +28,13 @@ require_once("WikiCalendarFormatList.php");
 require_once("WikiCalendarFormatTable.php");
 
 $wgExtensionFunctions[] = "wfCalendarExtension";
-$wgExtensionCredits['parserhook'][] = array
-  (
+$wgExtensionCredits['parserhook'][] = array(
    'name' => 'wikicalendar',
    'author' => 'Christof Damian',
-   'url' => 'http://code.google.com/p/wikicalendar/'
+   'url' => 'http://code.google.com/p/wikicalendar/',
+   'version' => 1.13,
+   'description' => 'simple calendar extension',
+   'descriptionmsg' => 'wikicalendar-desc'
    );
 
 function wfCalendarExtension() {
