@@ -1,3 +1,8 @@
+2008-09-16 	Christof Damian  <christof@damian.net>
+
+	* new "weeks" view
+	* new "months" view
+
 2006-10-09  Christof Damian  <christof@damian.net>
 
 	* released 1.13
@@ -13,7 +18,7 @@
 	* fix for including more than one calendar
 
 	* simple ical format, which I use on krass.com
-	
+
 2006-04-18  Christof Damian  <christof@damian.net>
 
 	* released 1.11
@@ -53,7 +58,7 @@
 	* released 1.7
 
 	* another fix for the cache (thanks to Austin Che)
-	
+
 	* "skipempty" option
 
 	* "rdays" reverse order of days
@@ -126,5 +131,5 @@
 2005-08-29  Christof Damian  <christof@damian.net>
 
 	* fix problem with "format" option
-	
+
 

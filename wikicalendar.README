@@ -27,7 +27,7 @@ The parameters work like this:
 
 "view"
        can be "days" days from today, "rdays" (reverse days),
-       "week","month","threemonths", "year" (default) and "weeks".
+       "week","month","threemonths", "year" (default), "weeks" and "months".
 "name"
        is a name for the calendar and changes the names of the day pages.
 "format"
@@ -71,6 +71,8 @@ The parameters work like this:
          calendars. The 'calendar' class is added to the table tag and
          the 'calendarToday' class to the span tag that contains the
          weekday title.
+"months"
+        number of months for the "months" view
 
 format & formattitle accept these substitutions:
         %name
@@ -82,3 +84,4 @@ Thanks go to these contributors:
 - Amador amador@tiscali.nl (localization, weekformat, showempty)
 - Austin Che (cache fix)
 - Dexter Samida <dextersamida@gmail.com> (today view)
+- Kai Sommer (months view)

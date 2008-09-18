@@ -80,6 +80,7 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
         "month" => 0,
         "year"  => 0,
         "days"  => 7,
+		"months" => 2,
         "weekstart" => 1,
         "formattitle" => "%j.%n.%Y %l",
         "skipempty" => 0,
@@ -96,7 +97,7 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 
 	foreach (array('view','day','month','year','days','weekstart',
                  'formattitle','format','name','date','skipempty',
-                 'showempty','weekformat','weekdaylen','enddate'
+                 'showempty','weekformat','weekdaylen','enddate','months'
 		) as $i) {
 		if (isset($params[$i])) {
 			$p[$i] = $params[$i];
@@ -156,6 +157,9 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 		case "threemonths":
 			$calstr = $cal->displayThreeMonths();
 			break;
+		case "months":
+			$calstr = $cal->displayMonths($p['months']);
+			break;
 		case "days":
 			$calstr = $cal->displayDays($p["days"]);
 			break;
@@ -165,6 +169,7 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 		case "weeks":
 			$calstr = $cal->displayWeeks($p['enddate']);
 			break;
+		case "year":
 		default:
 			$calstr = $cal->displayYear();
 	}

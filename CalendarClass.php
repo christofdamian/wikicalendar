@@ -164,45 +164,42 @@ class CalendarClass
 
 	function displayThreeMonths()
 	{
-		$month = $this->month;
-		$year  = $this->year;
-
-		$month--;
-		if ($month < 1) {
-			$month = 12;
-			$year--;
+		$this->month--;
+		if ($this->month < 1) {
+			$this->month = 12;
+			$this->year--;
 		}
 
-		$r = '';
-		for ($i=0; $i<3; $i++) {
-			$r .= '<td valign="top">';
-			$r .= $this->displayMonth($month, $year);
-			$month++;
-			if ($month > 12) {
-				$month = 1;
-				$year++;
-			}
-			$r .= '</td>';
-		}
-
-		return '<table class="calendar" border="0"><tr>'.$r.'</tr></table>';
-
+		return $this->displayMonths(3);
 	}
 
-	function displayYear()
+	function displayMonths($count,$header = '')
 	{
-		$r = '<td class="calendarHeader" valign="top" align="center" colspan="4">';
-		$r .= $this->year;
-		$r .= "</td></tr>\n<tr>";
+		$r = '';
 
-		for ($i=1; $i<=12; $i++) {
-			$r .= '<td valign="top">'.$this->displayMonth($i).'</td>';
+		for ($i=1; $i<=$count; $i++) {
+			$r .= '<td valign="top">'.$this->displayMonth().'</td>';
+			$this->month++;
+			if ($this->month > 12) {
+				$this->month = 1;
+				$this->year++;
+			}
 			if ($i % 4 == 0) {
 				$r .= "</tr>\n<tr>";
 			}
 		}
 
-		return '<table class="calendar" border="0"><tr>'.$r.'</tr></table>';
+		return '<table class="calendar" border="0">'.$header.'<tr>'.$r.'</tr></table>';
+	}
+
+	function displayYear() {
+		$header =
+			'<tr><td class="calendarHeader" valign="top" align="center" colspan="4">'
+			.$this->year
+			."</td></tr>\n";
+
+		$this->month = 1;
+		return $this->displayMonths(12,$header);
 	}
 
 	function displayWeekday($d, $m, $y, $dow)
