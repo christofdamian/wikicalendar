@@ -87,7 +87,8 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
         "showempty" => 1,
         "weekformat" => "text",
         "weekdaylen" => 1,
-		"enddate" => false
+		"enddate" => false,
+		"mergemonth" => false
 	);
 
 	preg_match_all('/([\w]+)\s*=\s*(?:"([^"]+)"|([^"\s]+))/', $paramstring, $matches);
@@ -97,7 +98,8 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 
 	foreach (array('view','day','month','year','days','weekstart',
                  'formattitle','format','name','date','skipempty',
-                 'showempty','weekformat','weekdaylen','enddate','months'
+                 'showempty','weekformat','weekdaylen','enddate','months',
+				'mergemonth'
 		) as $i) {
 		if (isset($params[$i])) {
 			$p[$i] = $params[$i];
@@ -126,6 +128,7 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 	$cal->skipempty = $p['skipempty'];
 	$cal->showempty = $p['showempty'];
 	$cal->weekdaylen = $p['weekdaylen'];
+	$cal->mergemonth = $p['mergemonth'];
 
 	if (isset($p["merge"])) {
 		$cal->merge = explode(',',$p["merge"]);

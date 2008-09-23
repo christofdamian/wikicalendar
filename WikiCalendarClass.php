@@ -31,6 +31,7 @@ class WikiCalendarClass extends CalendarClass {
 	var $skipempty;
 	var $showempty;
 	var $weekdaylen;
+	var $mergemonth = false;
 
 
 	function WeekdayShort($dow, $len = false) {
@@ -104,17 +105,25 @@ class WikiCalendarClass extends CalendarClass {
 	}
 
 	function displayDay($day, $month, $year) {
+		if ($this->mergemonth) {
+      return $this->displayWeekday($day, $month, $year, 0);
+		}
+
 		$text = $this->formatdate($day,$month,$year);
 		$title = Title::newFromText($text);
 		return '[['.$text.'|'.$day.']]';
 	}
 
-	function displayWeekday($day, $month, $year, $dow) {
+	function displayWeekday($day, $month, $year, $dow)
+	{
 		$today = getdate();
 		$text = $this->formatdate($day,$month,$year);
 		$heading = $this->formattitle($day,$month,$year);
 
-		if (($day == $today["mday"]) && ($month == $today["mon"]) && ($year == $today["year"])) {
+		if (
+			($day == $today["mday"]) &&
+			($month == $today["mon"]) &&
+			($year == $today["year"])) {
 			$r = $this->weekformat->TodayTitle($text,$heading);
 		} else {
 			$r = $this->weekformat->DayTitle($text,$heading);
@@ -141,7 +150,10 @@ class WikiCalendarClass extends CalendarClass {
 			if ($this->skipempty) {
 				return '';
 			} elseif ($this->showempty) {
-				$r .= $this->weekformat->EmptyDay("<small>No entries for this date. Please [[$text|feel free to add entries]].</small>");
+				$r .= $this->weekformat->EmptyDay(
+					"<small>No entries for this date. Please ".
+					"[[$text|feel free to add entries]].</small>"
+					);
 			}
 		}
 

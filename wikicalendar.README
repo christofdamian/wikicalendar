@@ -73,6 +73,8 @@ The parameters work like this:
          weekday title.
 "months"
         number of months for the "months" view
+"mergemonth"
+		include the day page in the month, months and year views
 
 format & formattitle accept these substitutions:
         %name

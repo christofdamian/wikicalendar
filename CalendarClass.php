@@ -72,14 +72,16 @@ class CalendarClass
 	function displayDayCell($d, $m, $y)
 	{
 		$daytext = $this->displayDay($d, $m, $y);
-		$today = getdate();
+		$today 	 = getdate();
+		$style   = '';
+		$class   = '';
 
 		if ($d==$today["mday"] and $m==$today["mon"] and $y==$today["year"]) {
-			return '<td align="right" valign="top" class="calendarToday">'
-				.'<b>'.$daytext.'</b></td>';
-		} else {
-			return '<td align="right" valign="top">'.$daytext.'</td>';
+			$class = 'class="calendarToday"';
+			$style = 'style="font-weight: bold;"';
 		}
+
+		return "<td align=\"right\" valign=\"top\" $class $style>$daytext</td>";
 	}
 
 	function displayEmptyCell()
