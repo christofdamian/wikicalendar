@@ -1,89 +1,89 @@
-Simple calendar extension for mediawiki.
-
-Released under the GPL. Copyright 2005 by Christof Damian
-(christof@damian.net)
-
-I wrote this for http://krass.com/ where I have simple event
-calendar. Examples are at http://krass.com/wiki/Current_events and
-http://krass.com/wiki/Calendar
-
-The idea was to keep the calendar as simple as possibe and leave all
-the editing and page creation to mediawiki. It doesn't require any new
-database tables or files.
-
-To use this on your mediawiki site, copy the php files into your
-extension directory and put this into your LocalSettings.php:
-
-  include("extensions/Calendar.php");
-
-Then you can use the calendar on any page like this:
-
-<calendar>
-name=krass
-view=year
-</calendar>
-
-The parameters work like this:
-
-"view"
-       can be "days" days from today, "rdays" (reverse days),
-       "week","month","threemonths", "year" (default), "weeks" and "months".
-"name"
-       is a name for the calendar and changes the names of the day pages.
-"format"
-       defaults to '%name_%year_%month_%day' and describes the names
-       of the day pages.
-"formattitle"
-       formats the titles in today/days/week view
-"day","month","year"
-       you can specify the date of the calendar, it defaults to today.
-       currently this doesn't work with "view=week"
-"date"
-       this takes a php strtotime ( http:://www.php.net/strtotime )
-       option and overrides the "day","month","year" option
-       above. examples are:
-
-       date="+1 week"
-       date="next monday"
-       date="+7 days"
-"enddate"
-       just used for the weeks view, this is the last date to display in the
-       weeks
-"weekstart"
-       week starts on 1=monday ... 7=sunday. default is 1
-"skipempty"
-       skip empty days in week view
-"showempty"
-       show inivitation to add entries when a day is empty, default is 1
-"weekformat"
-       format of the week, days, rdays and today view.
-
-       - "text" (default), simple wikitext format
-       - "list" a layout that uses <dl>, <dt> and <dd> (definition
-         list) tags with the 'calendar' class added to the <dl>
-         tag and the calendarToday class to the span tag that
-         contains the weekday title. Merged calendar
-         entries are added as sub lists with the name part of the
-         merged calendar as a link to the page of that
-         calendar.
-       - "table" a layout that uses table tags with also the name of
-         merged calendars as a link to the page of those
-         calendars. The 'calendar' class is added to the table tag and
-         the 'calendarToday' class to the span tag that contains the
-         weekday title.
-"months"
-        number of months for the "months" view
-"mergemonth"
-		include the day page in the month, months and year views
-
-format & formattitle accept these substitutions:
-        %name
-        %day,%month,%year
-        any php date() substitution prefixed with '%', like '%m','%d','%Y'
-
-Thanks go to these contributors:
-
-- Amador amador@tiscali.nl (localization, weekformat, showempty)
-- Austin Che (cache fix)
-- Dexter Samida <dextersamida@gmail.com> (today view)
-- Kai Sommer (months view)
+	Simple calendar extension for mediawiki.
+	
+	Released under the GPL. Copyright 2005 by Christof Damian
+	(christof@damian.net)
+	
+	I wrote this for http://krass.com/ where I have simple event
+	calendar. Examples are at http://krass.com/wiki/Current_events and
+	http://krass.com/wiki/Calendar
+	
+	The idea was to keep the calendar as simple as possibe and leave all
+	the editing and page creation to mediawiki. It doesn't require any new
+	database tables or files.
+	
+	To use this on your mediawiki site, copy the php files into your
+	extension directory and put this into your LocalSettings.php:
+	
+	  include("extensions/Calendar.php");
+	
+	Then you can use the calendar on any page like this:
+	
+	<calendar>
+	name=krass
+	view=year
+	</calendar>
+	
+	The parameters work like this:
+	
+	"view"
+	       can be "days" days from today, "rdays" (reverse days),
+	       "week","month","threemonths", "year" (default), "weeks" and "months".
+	"name"
+	       is a name for the calendar and changes the names of the day pages.
+	"format"
+	       defaults to '%name_%year_%month_%day' and describes the names
+	       of the day pages.
+	"formattitle"
+	       formats the titles in today/days/week view
+	"day","month","year"
+	       you can specify the date of the calendar, it defaults to today.
+	       currently this doesn't work with "view=week"
+	"date"
+	       this takes a php strtotime ( http:://www.php.net/strtotime )
+	       option and overrides the "day","month","year" option
+	       above. examples are:
+	
+	       date="+1 week"
+	       date="next monday"
+	       date="+7 days"
+	"enddate"
+	       just used for the weeks view, this is the last date to display in the
+	       weeks
+	"weekstart"
+	       week starts on 1=monday ... 7=sunday. default is 1
+	"skipempty"
+	       skip empty days in week view
+	"showempty"
+	       show inivitation to add entries when a day is empty, default is 1
+	"weekformat"
+	       format of the week, days, rdays and today view.
+	
+	       - "text" (default), simple wikitext format
+	       - "list" a layout that uses <dl>, <dt> and <dd> (definition
+	         list) tags with the 'calendar' class added to the <dl>
+	         tag and the calendarToday class to the span tag that
+	         contains the weekday title. Merged calendar
+	         entries are added as sub lists with the name part of the
+	         merged calendar as a link to the page of that
+	         calendar.
+	       - "table" a layout that uses table tags with also the name of
+	         merged calendars as a link to the page of those
+	         calendars. The 'calendar' class is added to the table tag and
+	         the 'calendarToday' class to the span tag that contains the
+	         weekday title.
+	"months"
+	        number of months for the "months" view
+	"mergemonth"
+			include the day page in the month, months and year views
+	
+	format & formattitle accept these substitutions:
+	        %name
+	        %day,%month,%year
+	        any php date() substitution prefixed with '%', like '%m','%d','%Y'
+	
+	Thanks go to these contributors:
+	
+	- Amador amador@tiscali.nl (localization, weekformat, showempty)
+	- Austin Che (cache fix)
+	- Dexter Samida <dextersamida@gmail.com> (today view)
+	- Kai Sommer (months view)
