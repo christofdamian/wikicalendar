@@ -77,6 +77,15 @@ class CalendarClassTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($_cal->displayWeek(), $_cal->displayDays(7));
 	}
 
+	public function testDisplayReverseDays()
+	{
+		$_cal = new CalendarClass(2005, 10, 10);
+		$this->assertEquals(
+			'10.10.2005 Monday9.10.2005 Sunday',
+			$this->_striphtml($_cal->displayReverseDays(2))
+		);
+	}
+
 	public function testDisplayMonth1()
 	{
 		$this->assertEquals("November|M,T,W,T,F,S,S|"

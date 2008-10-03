@@ -269,7 +269,7 @@ class CalendarClass
 
 		$r = '';
 		for ($i=0; $i<$n; $i++) {
-			$r .= $this->displayWeekday($day, $month, $year, ($wday-$i) % 7+1);
+			$r .= $this->displayWeekday($day, $month, $year, ($wday-$i+7) % 7+1);
 
 			if (--$day < 1 ) {
 				if ( --$month < 1 ) {
