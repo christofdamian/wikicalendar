@@ -3,11 +3,11 @@
 class WikiCalendarFormatList extends WikiCalendarFormatText { 
   
   function DayTitle($text,$heading) {
-    return "<dt>[[$text|$heading]]</dt>\n";
+    return "<dt>[[$text|$heading]]\n";
   }
 
   function TodayTitle($text,$heading) {
-    return "<dt><span class=\"calendarToday\">[[$text|$heading]]</span></dt>\n";
+    return "<dt><span class=\"calendarToday\">[[$text|$heading]]</span>\n";
   }
 
   function Day($text, $merged) {
@@ -15,9 +15,9 @@ class WikiCalendarFormatList extends WikiCalendarFormatText {
       $text = "{{:$text}}";
     };
     if ($merged) {
-      return "<dd>$text\n$merged</dd>\n";
+      return "<dd>$text\n$merged\n";
     } else {
-      return "<dd>$text</dd>\n";
+      return "<dd>$text\n";
     }
   }
 
@@ -26,7 +26,7 @@ class WikiCalendarFormatList extends WikiCalendarFormatText {
   }
   
   function EmptyDay($text) {
-    return "<dd>$text</dd>";
+    return "<dd>$text";
   }
   
   function Wrapper($text) {
