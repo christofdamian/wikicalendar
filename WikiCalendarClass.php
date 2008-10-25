@@ -32,6 +32,8 @@ class WikiCalendarClass extends CalendarClass {
 	var $showempty;
 	var $weekdaylen;
 	var $mergemonth = false;
+	var $weekformat;
+	var $merge = array();
 
 
 	function WeekdayShort($dow, $len = false) {

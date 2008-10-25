@@ -132,8 +132,6 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 
 	if (isset($p["merge"])) {
 		$cal->merge = explode(',',$p["merge"]);
-	} else {
-		$cal->merge = array();
 	}
 
 	switch ($p['weekformat']) {
