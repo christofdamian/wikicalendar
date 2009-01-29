@@ -33,7 +33,7 @@ $wgExtensionCredits['parserhook'][] = array(
    'name' => 'wikicalendar',
    'author' => 'Christof Damian',
    'url' => 'http://code.google.com/p/wikicalendar/',
-   'version' => "1.15",
+   'version' => "1.15svn",
    'description' => 'simple calendar extension',
    'descriptionmsg' => 'wikicalendar-desc'
    );
