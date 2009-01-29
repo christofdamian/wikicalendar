@@ -1,8 +1,8 @@
 <?php
-require_once 'PHPUnit/Framework.php';
+require_once('PHPUnit/Framework.php');
 
-require_once 'CalendarClassTest.php';
-require_once 'WikiCalendarClassTest.php';
+require_once(dirname(__FILE__).'/CalendarClassTest.php');
+require_once(dirname(__FILE__).'/WikiCalendarClassTest.php');
 
 class AllTests
 {

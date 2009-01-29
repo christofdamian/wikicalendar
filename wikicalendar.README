@@ -11,15 +11,16 @@
 	the editing and page creation to mediawiki. It doesn't require any new
 	database tables or files.
 	
-	To use this on your mediawiki site, copy the php files into your
-	extension directory and put this into your LocalSettings.php:
+	To use this on your mediawiki site, copy the "calendar" directory into your
+	extension directory and put this somewhere at the end of your 
+	"LocalSettings.php":
 	
-	  include("extensions/Calendar.php");
+	  require_once("$IP/extensions/calendar/Calendar.php");
 	
 	Then you can use the calendar on any page like this:
 	
 	<calendar>
-	name=krass
+	name=mycalendar
 	view=year
 	</calendar>
 	

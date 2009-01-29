@@ -7,8 +7,8 @@
  * @license GPL2
  */
 
-require_once dirname(__FILE__)."/../WikiCalendarClass.php";
-require_once dirname(__FILE__)."/../WikiCalendarFormatText.php";
+require_once dirname(__FILE__)."/../calendar/WikiCalendarClass.php";
+require_once dirname(__FILE__)."/../calendar/WikiCalendarFormatText.php";
 
 /**
  * mock Title class
@@ -61,7 +61,8 @@ class WikiCalendarClassTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * strip whitesspace and stuff from the string, to make tests above more readable
+	 * strip whitesspace and stuff from the string, to make tests above more
+	 * readable
 	 *
 	 * @param string 	$html string to strip
 	 * @return string

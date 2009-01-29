@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-require_once dirname(__FILE__).'/CalendarClass.php';
+require_once(dirname(__FILE__).'/CalendarClass.php');
 
 class WikiCalendarClass extends CalendarClass {
 
@@ -165,7 +165,7 @@ class WikiCalendarClass extends CalendarClass {
 	function displayDays($n = 0, $reverse = false) {
 		$time = mktime(0, 0, 0, $this->month, $this->day, $this->year);
 		if ($n == 0) {
-			$time -= 60 * 60 * 24 * ((date('w', $time) + 7 - $this->weekstart) % 7);
+			$time -= 60*60*24 * ((date('w', $time) + 7 - $this->weekstart) % 7);
 			$n = 7;
 		}
 

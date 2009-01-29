@@ -7,7 +7,7 @@
  * @license GPL2
  */
 
-require_once dirname(__FILE__)."/../CalendarClass.php";
+require_once dirname(__FILE__)."/../calendar/CalendarClass.php";
 
 /**
  * class with tests for the CalendarClass

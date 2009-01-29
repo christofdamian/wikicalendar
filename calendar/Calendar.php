@@ -21,18 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-require_once("WikiCalendarClass.php");
+require_once(dirname(__FILE__)."/WikiCalendarClass.php");
+require_once(dirname(__FILE__)."/WikiCalendarFormatText.php");
+require_once(dirname(__FILE__)."/WikiCalendarFormatList.php");
+require_once(dirname(__FILE__)."/WikiCalendarFormatTable.php");
+require_once(dirname(__FILE__)."/WikiCalendarFormatIcal.php");
 
-require_once("WikiCalendarFormatText.php");
-require_once("WikiCalendarFormatList.php");
-require_once("WikiCalendarFormatTable.php");
 
 $wgExtensionFunctions[] = "wfCalendarExtension";
 $wgExtensionCredits['parserhook'][] = array(
    'name' => 'wikicalendar',
    'author' => 'Christof Damian',
    'url' => 'http://code.google.com/p/wikicalendar/',
-   'version' => "1.14svn",
+   'version' => "1.15",
    'description' => 'simple calendar extension',
    'descriptionmsg' => 'wikicalendar-desc'
    );
@@ -56,12 +57,14 @@ function clearCache() {
   } elseif (version_compare($wgVersion,'1.4','>=')) {
     global $wgTitle;
     $dbw =& wfGetDB( DB_MASTER );
-    $dbw->update( 'cur', array( 'cur_touched' => $dbw->timestamp( time() + 120 ) ),
-                  array(
-                        'cur_namespace' => $wgTitle->getNamespace(),
-                        'cur_title' => $wgTitle->getDBkey()
-                        ), 'CalendarExtension'
-                  );
+    $dbw->update( 'cur', array(
+			'cur_touched' => $dbw->timestamp( time() + 120 )
+		),
+        array(
+        	'cur_namespace' => $wgTitle->getNamespace(),
+            'cur_title' => $wgTitle->getDBkey()
+        ), 'CalendarExtension'
+	);
   } elseif (version_compare($wgVersion,'1.3','>=')) {
     $wgOut->enableClientCache(false);
   }
@@ -91,7 +94,10 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 		"mergemonth" => false
 	);
 
-	preg_match_all('/([\w]+)\s*=\s*(?:"([^"]+)"|([^"\s]+))/', $paramstring, $matches);
+	preg_match_all(
+		'/([\w]+)\s*=\s*(?:"([^"]+)"|([^"\s]+))/',
+		$paramstring,
+		$matches);
 	for ($i=0; $i< count($matches[0]); $i++) {
 		$p[$matches[1][$i]] = $matches[2][$i].$matches[3][$i];
 	}
@@ -141,6 +147,9 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 		case 'table':
 			$cal->weekformat = new WikiCalendarFormatTable();
 			break;
+		case 'ical':
+			$cal->weekformat = new WikiCalendarFormatIcal();
+			break;
 		default:
 			$cal->weekformat = new WikiCalendarFormatText();
 	}
@@ -175,7 +184,12 @@ function renderCalendar( $paramstring, $params = array() , $parser ) {
 			$calstr = $cal->displayYear();
 	}
 
-	$o = & $parser->parse($calstr,$wgTitle,ParserOptions::newFromUser($wgUser), true, false);
+	$o = & $parser->parse(
+		$calstr,
+		$wgTitle,
+		ParserOptions::newFromUser($wgUser),
+		true,
+		false);
 
 	clearCache();
 
