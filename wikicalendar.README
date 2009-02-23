@@ -7,7 +7,7 @@
 	calendar. Examples are at http://krass.com/wiki/Current_events and
 	http://krass.com/wiki/Calendar
 	
-	The idea was to keep the calendar as simple as possibe and leave all
+	The idea was to keep the calendar as simple as possible and leave all
 	the editing and page creation to mediawiki. It doesn't require any new
 	database tables or files.
 	
