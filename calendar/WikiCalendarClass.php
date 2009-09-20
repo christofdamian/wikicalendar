@@ -35,38 +35,38 @@ class WikiCalendarClass extends CalendarClass {
 	var $weekformat;
 	var $merge = array();
 
+	private $weekdays = array('monday','tuesday','wednesday',
+               'thursday','friday','saturday','sunday');
+
+	private $months = array("january", "february", "march", "april",
+               "may_long", "june", "july", "august",
+               "september", "october", "november", "december");
 
 	function WeekdayShort($dow, $len = false) {
-		if ($dow == 0) $dow = 7;
-		if ($len === false) $len = $this->weekdaylen;
-		$a = array('monday','tuesday','wednesday',
-               'thursday','friday','saturday','sunday');
-		$day = wfMsg($a[$dow-1]);
-		return substr($day, 0, $len);
+		$day = $this->WeekdayLong($dow);
+		if ($len === false) {
+			$len = $this->weekdaylen;
+		}
+		return mb_substr($day, 0, $len);
 	}
 
 	function WeekdayLong($dow) {
-		if ($dow == 0) $dow = 7;
-		$a = array('monday','tuesday','wednesday',
-               'thursday','friday','saturday','sunday');
-		return wfMsg($a[$dow-1]);
+		if ($dow == 0) {
+			$dow = 7;
+		}
+		return wfMsg($this->weekdays[$dow-1]);
 	}
 
 	function MonthName($month) {
-		$a = array("january", "february", "march", "april",
-               "may_long", "june", "july", "august",
-               "september", "october", "november", "december");
-		return wfMsg($a[$month-1]);
+		return wfMsg($this->months[$month-1]);
 	}
 
 	function MonthShort($month) {
-		$a = array("jan", "feb", "mar", "apr", "may", "jun",
-               "jul", "aug", "sep", "oct", "nov", "dec");
-		return wfMsg($a[$month-1]);
+		return wfMsg(substr($this->months[$month-1], 0, 3));
 	}
 
 	function MonthLong($month) {
-		return ($this->MonthName($month));
+		return $this->MonthName($month);
 	}
 
 	function _format($day,$month,$year,$name,$r) {

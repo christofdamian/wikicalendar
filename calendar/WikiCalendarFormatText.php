@@ -1,7 +1,7 @@
 <?php
 
-class WikiCalendarFormatText { 
-  
+class WikiCalendarFormatText {
+
   function DayTitle($text,$heading) {
     return "\n\n<b><span style=\"font-size:120%\">[[$text|$heading]]</span></b>\n\n";
   }
@@ -15,7 +15,7 @@ class WikiCalendarFormatText {
       return "{{:$text}}$merged\n";
     } else {
       # remove the leading "<br/>" too.
-      return substr($merged,5)."\n";
+      return mb_substr($merged,5)."\n";
     }
   }
 
